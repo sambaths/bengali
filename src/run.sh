@@ -1,0 +1,8 @@
+export CUDA_VISIBLE_DEVICES=0,1
+export IMG_HEIGHT=137
+export IMG_WIDTH=236
+export EPOCHS=50
+export TRAIN_BATCH_SIZE=64
+export TEST_BATCH_SIZE=8
+export MODEL_MEAN="
+exo"rt MODEL_std="

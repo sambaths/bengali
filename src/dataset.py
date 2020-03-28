@@ -1,12 +1,12 @@
 import pandas as pd
 import joblib
-from PIL import image
+from PIL import Image
 import albumentations
 import numpy as np
 import torch
 
 class BengaliDatasetTrain:
-    def __inti__(self, folds, img_height, img_width, mean, std):
+    def __init__(self, folds, img_height, img_width, mean, std):
         df = pd.read_csv('/content/input/train_folds.csv')
         df = df[['image_id','grapheme_root','vowel_diacritic','consonant_diacritic','kfold']]
 
@@ -33,10 +33,10 @@ class BengaliDatasetTrain:
     def __len__(self):
         return len(self.image_ids)
 
-    def__getitem__(self, item):
+    def __getitem__(self, item):
         image = joblib.load(f"/content/input/image_pickles/{self.image_ids[item]}.pkl")
-        image = image.reshape(137,236).astype(float)
-        image = image.fromarray(image).convert("RGB")
+        image = np.asarray(image.reshape(137,236).astype(float))
+        image = Image.fromarray(image).convert("RGB")
         image = self.aug(image=np.array(image))['image']
         image = np.transpose(image,(2,0,1)).astype(np.float32)
         return {
